@@ -8,7 +8,8 @@ Climate project automation using PKDL A1 climate data logger
 - Setting Up the Climate Data Logger:
 
     - The device measures temperature (in °C) and humidity (%) every 5 minutes, exporting the data in a CSV file.
-    - You will need to configure the date and frequency using the LIDL software, you can find it in 
+    - You will need to configure the date and frequency using the LIDL software, you can find it in "/PKDLA1 Software" folder
+         - It easy to install and configure the options for your data logger.
 
 - Data Cleaning and Preparation:
 
