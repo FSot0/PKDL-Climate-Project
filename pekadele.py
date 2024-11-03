@@ -7,7 +7,7 @@ st.title("Dashboard de Datos Climáticos")
 st.write("Visualización de temperatura y humedad con datos recogidos cada 5 minutos.")
 
 # URL del archivo CSV en GitHub
-csv_url = 'https://raw.githubusercontent.com/FSot0/Clima_Dashboard/refs/heads/main/USB%20Data%20Logger_210101_2236%20-%20copia.CSV'
+csv_url = 'https://raw.githubusercontent.com/FSot0/PKDL-Climate-Project/refs/heads/main/data/data.CSV'
 
 # Carga de datos desde GitHub
 @st.cache
