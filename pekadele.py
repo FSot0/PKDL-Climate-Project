@@ -2,9 +2,8 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# Configuración básica
-st.title("Dashboard de Datos Climáticos")
-st.write("Visualización de temperatura y humedad con datos recogidos cada 5 minutos.")
+# Configuración básica del título centrado con emoticono
+st.markdown("<h1 style='text-align: center;'>🌤️ Dashboard Clima Boadilla 🌤️</h1>", unsafe_allow_html=True)
 
 # URL del archivo CSV en GitHub
 csv_url = 'https://raw.githubusercontent.com/FSot0/PKDL-Climate-Project/refs/heads/main/data/data.CSV'
@@ -20,9 +19,32 @@ def load_data(url):
 
 data = load_data(csv_url)
 
-# Estadísticas descriptivas
-st.subheader("Estadísticas Descriptivas Diarias")
-st.write(data.resample('D').mean().describe())
+# Mostrar las últimas temperaturas registradas a horas específicas
+st.subheader("Temperaturas Registradas a Horas Fijas")
+for hour in ['09:00', '15:00', '21:00', '03:00']:
+    last_record = data[data.index.time == pd.to_datetime(hour).time()]
+    last_temp = last_record.iloc[-1]['Temperature_C'] if not last_record.empty else 'No disponible'
+    st.write(f"Temperatura a las {hour}: {last_temp} °C")
+
+# Mostrar el día con la temperatura más baja y más alta
+st.subheader("Día con Temperatura Más Baja y Más Alta")
+min_temp_day = data['Temperature_C'].idxmin()
+max_temp_day = data['Temperature_C'].idxmax()
+min_temp = data['Temperature_C'].min()
+max_temp = data['Temperature_C'].max()
+
+st.write(f"Temperatura más baja registrada: {min_temp} °C el día {min_temp_day.strftime('%Y-%m-%d')}")
+st.write(f"Temperatura más alta registrada: {max_temp} °C el día {max_temp_day.strftime('%Y-%m-%d')}")
+
+# Gráfico de la evolución de la temperatura del último día registrado
+st.subheader("Evolución de la Temperatura del Último Día Registrado")
+last_day = data.loc[data.index.date == data.index.date.max()]
+fig, ax = plt.subplots(figsize=(10, 5))
+ax.plot(last_day.index, last_day['Temperature_C'], marker='o')
+plt.title("Evolución de la Temperatura en el Último Día")
+plt.xlabel("Hora")
+plt.ylabel("Temperatura (°C)")
+st.pyplot(fig)
 
 # Gráfico de tendencias diarias
 st.subheader("Tendencias Diarias")
