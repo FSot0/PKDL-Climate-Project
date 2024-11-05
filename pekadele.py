@@ -56,6 +56,7 @@ st.write(f"❄️ Temperatura más baja registrada: {min_temp} °C el día {min_
 st.write(f"🔥 Temperatura más alta registrada: {max_temp} °C el día {max_temp_date} a las {max_temp_time}")
 
 # Cálculo del número de días completos
+data.index = pd.to_datetime(data.index)
 total_days = (data.index[-1] - data.index[0]).days
 
 # Gráficas de la evolución de temperatura y humedad según los datos registrados
