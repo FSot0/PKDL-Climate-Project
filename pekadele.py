@@ -37,27 +37,5 @@ max_temp = data['Temperature'].max()
 st.write(f"❄️ Temperatura más baja registrada: {min_temp} °C el día {min_temp_day.strftime('%Y-%m-%d')}")
 st.write(f"🔥 Temperatura más alta registrada: {max_temp} °C el día {max_temp_day.strftime('%Y-%m-%d')}")
 
-# Gráficas de la evolución mensual de temperatura y humedad
-st.subheader("📅 Evolución Mensual de Temperatura y Humedad")
-monthly_data = data.resample('M').mean()
 
-# Gráfico de la evolución mensual de la temperatura
-fig_temp, ax_temp = plt.subplots(figsize=(10, 5))
-ax_temp.plot(monthly_data.index, monthly_data['Temperature'], marker='o', color='tomato', label='Temperatura (°C)')
-plt.title("Evolución Mensual de la Temperatura")
-plt.xlabel("Mes")
-plt.ylabel("Temperatura (°C)")
-plt.legend()
-st.pyplot(fig_temp)
-
-# Gráfico de la evolución mensual de la humedad
-fig_hum, ax_hum = plt.subplots(figsize=(10, 5))
-ax_hum.plot(monthly_data.index, monthly_data['Humidity'], marker='o', color='skyblue', label='Humedad (%)')
-plt.title("Evolución Mensual de la Humedad")
-plt.xlabel("Mes")
-plt.ylabel("Humedad (%)")
-plt.legend()
-st.pyplot(fig_hum)
-
-st.markdown("<h5 style='text-align: center;'>📈 Monitoriza las tendencias mensuales para análisis climático 🕰️</h5>", unsafe_allow_html=True)
 
