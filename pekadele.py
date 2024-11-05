@@ -43,19 +43,24 @@ for hour in ['09:00', '15:00', '21:00', '03:00']:
 
 # Mostrar el día con la temperatura más baja y más alta
 st.subheader("📉 Día con Temperatura Más Baja y 📈 Más Alta")
-min_temp_day = data.loc[data['Temperature'].idxmin()]
-max_temp_day = data.loc[data['Temperature'].idxmax()]
-min_temp = data['Temperature'].min()
-max_temp = data['Temperature'].max()
+min_temp_row = data.loc[data['Temperature'].idxmin()]
+max_temp_row = data.loc[data['Temperature'].idxmax()]
+min_temp = min_temp_row['Temperature']
+max_temp = max_temp_row['Temperature']
+min_temp_date = min_temp_row['Date']
+max_temp_date = max_temp_row['Date']
+min_temp_time = min_temp_row['Time']
+max_temp_time = max_temp_row['Time']
 
-st.write(f"❄️ Temperatura más baja registrada: {min_temp} °C el día {min_temp_day['Date']}")
-st.write(f"🔥 Temperatura más alta registrada: {max_temp} °C el día {max_temp_day['Date']}")
+st.write(f"❄️ Temperatura más baja registrada: {min_temp} °C el día {min_temp_date} a las {min_temp_time}")
+st.write(f"🔥 Temperatura más alta registrada: {max_temp} °C el día {max_temp_date} a las {max_temp_time}")
 
 # Gráficas de la evolución de temperatura y humedad según los datos registrados
+data['DateTime'] = pd.to_datetime(data['Date'].astype(str) + ' ' + data['Time'].astype(str))
+data = data.sort_values('DateTime').drop_duplicates(subset=['DateTime'])
+
 st.subheader("📊 Evolución de la Temperatura Registrada")
 fig_temp, ax_temp = plt.subplots(figsize=(10, 5))
-
-data['DateTime'] = pd.to_datetime(data['Date'].astype(str) + ' ' + data['Time'].astype(str))
 
 ax_temp.plot(data['DateTime'], data['Temperature'], marker='o', color='tomato', label='Temperatura (°C)')
 plt.title("Evolución de la Temperatura")
@@ -75,7 +80,6 @@ plt.legend()
 plt.xticks(rotation=45)
 st.pyplot(fig_hum)
 
-st.markdown("<h5 style='text-align: center;'>📈 Monitoriza la evolución de temperatura y humedad según los datos registrados 🕰️</h5>", unsafe_allow_html=True)
 
 
 
