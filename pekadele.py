@@ -55,31 +55,31 @@ max_temp_time = max_temp_row['Time']
 st.write(f"❄️ Temperatura más baja registrada: {min_temp} °C el día {min_temp_date} a las {min_temp_time}")
 st.write(f"🔥 Temperatura más alta registrada: {max_temp} °C el día {max_temp_date} a las {max_temp_time}")
 
+# Cálculo del número de días completos
+total_days = (data.index[-1] - data.index[0]).days
+
 # Gráficas de la evolución de temperatura y humedad según los datos registrados
-data['DateTime'] = pd.to_datetime(data['Date'].astype(str) + ' ' + data['Time'].astype(str))
-data = data.sort_values('DateTime').drop_duplicates(subset=['DateTime'])
-
 st.subheader("📊 Evolución de la Temperatura Registrada")
+st.markdown(f"<h2 style='text-align: center; color: darkgreen;'>{total_days} días completos</h2>", unsafe_allow_html=True)
 fig_temp, ax_temp = plt.subplots(figsize=(10, 5))
-
-ax_temp.plot(data['DateTime'], data['Temperature'], marker='o', color='tomato', label='Temperatura (°C)')
+ax_temp.plot(data.index, data['Temperature'], marker='o', color='tomato', label='Temperatura (°C)')
 plt.title("Evolución de la Temperatura")
-plt.xlabel("Fecha y Hora")
+plt.xlabel("")  # Quitamos la etiqueta del eje X
 plt.ylabel("Temperatura (°C)")
 plt.legend()
-plt.xticks(rotation=45)
 st.pyplot(fig_temp)
 
+# Gráfico de la evolución de la humedad usando data.index en el eje X
 st.subheader("💧 Evolución de la Humedad Registrada")
+st.markdown(f"<h2 style='text-align: center; color: darkgreen;'>{total_days} días completos</h2>", unsafe_allow_html=True)
+
 fig_hum, ax_hum = plt.subplots(figsize=(10, 5))
-ax_hum.plot(data['DateTime'], data['Humidity'], marker='o', color='skyblue', label='Humedad (%)')
+ax_hum.plot(data.index, data['Humidity'], marker='o', color='skyblue', label='Humedad (%)')
 plt.title("Evolución de la Humedad")
-plt.xlabel("Fecha y Hora")
+plt.xlabel("")  # Quitamos la etiqueta del eje X
 plt.ylabel("Humedad (%)")
 plt.legend()
-plt.xticks(rotation=45)
 st.pyplot(fig_hum)
-
 
 
 
