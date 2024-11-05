@@ -54,21 +54,28 @@ st.write(f"🔥 Temperatura más alta registrada: {max_temp} °C el día {max_te
 # Gráficas de la evolución de temperatura y humedad según los datos registrados
 st.subheader("📊 Evolución de la Temperatura Registrada")
 fig_temp, ax_temp = plt.subplots(figsize=(10, 5))
-ax_temp.plot(data.index, data['Temperature'], marker='o', color='tomato', label='Temperatura (°C)')
+
+data['DateTime'] = pd.to_datetime(data['Date'].astype(str) + ' ' + data['Time'].astype(str))
+
+ax_temp.plot(data['DateTime'], data['Temperature'], marker='o', color='tomato', label='Temperatura (°C)')
 plt.title("Evolución de la Temperatura")
 plt.xlabel("Fecha y Hora")
 plt.ylabel("Temperatura (°C)")
 plt.legend()
+plt.xticks(rotation=45)
 st.pyplot(fig_temp)
 
 st.subheader("💧 Evolución de la Humedad Registrada")
 fig_hum, ax_hum = plt.subplots(figsize=(10, 5))
-ax_hum.plot(data.index, data['Humidity'], marker='o', color='skyblue', label='Humedad (%)')
+ax_hum.plot(data['DateTime'], data['Humidity'], marker='o', color='skyblue', label='Humedad (%)')
 plt.title("Evolución de la Humedad")
 plt.xlabel("Fecha y Hora")
 plt.ylabel("Humedad (%)")
 plt.legend()
+plt.xticks(rotation=45)
 st.pyplot(fig_hum)
+
+st.markdown("<h5 style='text-align: center;'>📈 Monitoriza la evolución de temperatura y humedad según los datos registrados 🕰️</h5>", unsafe_allow_html=True)
 
 
 
