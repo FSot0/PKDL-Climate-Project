@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from datetime import datetime, timedelta
 
 # Configuración básica del título centrado con iconos de clima
-st.markdown("<h1 style='text-align: center;'>🌤️ Dashboard Clima Boadilla 🌦️</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center;'>🌤️ Dashboard PKDL 🌦️</h1>", unsafe_allow_html=True)
 st.markdown("<h3 style='text-align: center;'>📅 Registro Mensual de Temperatura y Humedad 📊</h3>", unsafe_allow_html=True)
 
 # URL del archivo CSV en GitHub
